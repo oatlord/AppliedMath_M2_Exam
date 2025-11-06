@@ -23,12 +23,9 @@ public class BackstabEnemy : MonoBehaviour
 
     void Update()
     {
-        // Optional: passive detection or idle behavior here if needed
+
     }
 
-    /// <summary>
-    /// Called when player successfully performs a backstab.
-    /// </summary>
     public void OnBackstab()
     {
         if (isBackstabbed)
@@ -40,12 +37,10 @@ public class BackstabEnemy : MonoBehaviour
         if (enemyRenderer != null)
             enemyRenderer.material.color = Color.red;
 
-        // Optionally disable collider so it can't be hit again
         Collider col = GetComponent<Collider>();
         if (col != null)
             col.enabled = false;
 
-        // Destroy after short delay
         Destroy(gameObject, 1.5f);
     }
 
@@ -54,7 +49,6 @@ public class BackstabEnemy : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
-        // Draw back area visualization
         Vector3 forward = transform.forward * detectionRange;
         float angle = Mathf.Acos(backstabAngleThreshold) * Mathf.Rad2Deg;
 
