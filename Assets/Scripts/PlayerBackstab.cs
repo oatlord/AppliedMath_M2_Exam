@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class PlayerBackstab : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class PlayerBackstab : MonoBehaviour
     [SerializeField] private float detectionRange = 2.5f;
     [SerializeField] private float angleThreshold = 60f;
     [SerializeField] private float messageResetTime = 2f;
+
+    [Header("Scene Management")]
+    public GameObject sceneManagerObject;
+    public String sceneToLoad;
 
     private bool canBackstab;
     private bool hasBackstabbed;
@@ -76,14 +81,28 @@ public class PlayerBackstab : MonoBehaviour
 
         if (successful)
         {
-            if (playerControls != null) 
+            if (playerControls != null)
                 playerControls.enabled = false;
             if (swordAnimator != null)
                 swordAnimator.enabled = false;
+            messageRoutine = StartCoroutine(ChangeSceneAfterDelay(2f));
         }
         else
         {
             messageRoutine = StartCoroutine(ResetMessage());
+        }
+    }
+
+    private IEnumerator ChangeSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (sceneManagerObject != null)
+        {
+            SceneManager sceneManager = sceneManagerObject.GetComponent<SceneManager>();
+            if (sceneManager != null)
+            {
+                sceneManager.GoToScene(sceneToLoad);
+            }
         }
     }
 

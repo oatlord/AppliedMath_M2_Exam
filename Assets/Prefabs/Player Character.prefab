@@ -293,7 +293,7 @@ MonoBehaviour:
   playerCamera: {fileID: 3342734944911359994}
   walkSpeed: 400
   runSpeed: 700
-  jumpPower: 410
+  jumpPower: 420
   gravity: 500
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
