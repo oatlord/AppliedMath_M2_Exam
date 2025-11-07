@@ -55,8 +55,9 @@ public class PlayerBackstab : MonoBehaviour
             AnimatePrompt(DefaultText, color);
         }
 
-        if ((Input.GetKey(KeyCode.V) || Input.GetMouseButtonDown(0)) && !hasBackstabbed)
+        if ((Input.GetKeyDown(KeyCode.V) || Input.GetMouseButtonDown(0)) && !hasBackstabbed)
         {
+            swordAnimator.SetTrigger("hasAttacked");
             if (canBackstab)
             {
                 hasBackstabbed = true;
