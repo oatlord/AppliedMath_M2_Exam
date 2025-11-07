@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.TextCore.Text;
 
 public class PlayerRespawn : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerRespawn : MonoBehaviour
 
     private Vector3 respawnPoint;
     private Quaternion respawnRotation;
+    private CharacterController cc;
 
     private void Start()
     {
@@ -25,6 +27,11 @@ public class PlayerRespawn : MonoBehaviour
         {
             Debug.LogWarning("No Respawn Location assigned in Inspector.");
         }
+
+        if (cc == null)
+        {
+            cc = GetComponent<CharacterController>();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,6 +39,7 @@ public class PlayerRespawn : MonoBehaviour
         if (other != null && other.CompareTag("VaporDeathFloor"))
         {
             Debug.Log("Player has died. Respawning...");
+            cc.enabled = false;
             StartCoroutine(HandleDeathSequence());
         }
     }
@@ -54,8 +62,7 @@ public class PlayerRespawn : MonoBehaviour
 
     private void Respawn()
     {
-        CharacterController cc = GetComponent<CharacterController>();
-        if (cc != null) cc.enabled = false;
+        // if (cc != null) cc.enabled = false;
 
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
